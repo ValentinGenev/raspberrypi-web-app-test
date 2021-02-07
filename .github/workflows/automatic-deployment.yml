@@ -1,0 +1,21 @@
+# Check if dist is read
+
+name: Automatic deployment
+# Specifies when the action is going to be triggered
+on:
+  pull_request:
+    types: [opened, edited, closed]
+
+jobs:
+  deploy_to_prod:
+    name: Deploys the test app to prod env
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2.3.4
+
+      - name: Check files count in ./dist/
+        run: |
+          ls -la
+          echo 'test'

@@ -33,7 +33,7 @@ jobs:
           PROD_SSH_KEY=.ops/env/env_ssh_key
           PROD_SSH_HOST=( ${{ secrets.PROD_SSH_HOST }} )
           PROD_SSH_USER=( ${{ secrets.PROD_SSH_USER }} )
-          PROD_SSH_PORT=( ${{ secrets.PROD_PORT }} )
+          PROD_SSH_PORT=( ${{ secrets.PROD_SSH_PORT }} )
           VHOST=( "${{ github.event.repository.name }}" )
           EOF
 

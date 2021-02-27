@@ -2,16 +2,17 @@
 
 declare -rx DIR_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-function _usage()
+function _error()
 {
   if [ -n "$1" ]; then
     echo "Error: $1";
-    echo
   fi
 
 cat <<EOF
-Usage: ./provision.sh environment , cp example.env staging.env , after that ./provision.sh staging
-env file must resides in ./, eg. prod or staging
+Usage:
+- updates server's os;
+- installs dependencies;
+- prepares dirs;
 EOF
 }
 
@@ -20,7 +21,7 @@ _provision() {
   local host="$2";
   local user="$3";
   local port="$4";
-  echo "Provisioning $host:$port $user..."
+  echo "Provisioning..."
 
   ssh -o StrictHostKeyChecking=no -o IdentitiesOnly=no -i $sshkey $user@$host -p $port 'sudo bash -s' < "$DIR_ROOT/provision-local.sh"
 }
@@ -30,7 +31,7 @@ main() {
   echo $file_env
 
   if [[ $# == 0 ]] || [[ ! -f $file_env ]]; then
-    _usage "Environment file missing for provision"
+    _error "The environment file is missing!"
   else
     echo "Environment file found, parsing... "
 

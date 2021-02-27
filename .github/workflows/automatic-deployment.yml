@@ -23,7 +23,6 @@ jobs:
           touch env_ssh_key
           cat <<\EOF > env_ssh_key
           ${{ secrets.PROD_SSH_KEY }}
-
           EOF
           chmod 400 env_ssh_key
 

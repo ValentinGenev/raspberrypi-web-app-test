@@ -4,7 +4,7 @@ declare -rx DIR_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 . "$DIR_ROOT/common.sh"
 
-function _usage()
+function _error()
 {
   if [ -n "$1" ]; then
     echo "Error: $1";
@@ -12,12 +12,9 @@ function _usage()
   fi
 
 cat <<EOF
-Usage: ./deploy.sh staging
-
-what it does?
-- build remotely
-- transfer files
-- restart nginx/nodejs/php
+Usage:
+- transfers files;
+- restarts nginx, php;
 EOF
 }
 
@@ -25,8 +22,7 @@ _prepare_artifact() {
   local name="$1";
   local location="$2";
   local target="$DIR_ROOT/artifacts/$name.tar.gz";
-  local source="`cd "$DIR_ROOT/../";
-  pwd`";
+  local source="`cd "$DIR_ROOT/../";pwd`";.
 
   echo $location
 
@@ -36,7 +32,6 @@ _prepare_artifact() {
     --exclude "node_modules/" \
     --exclude "*.txt" \
     --exclude "*.log" \
-    -C $DIR_ROOT conf/ \
     -C $source $location
 }
 
@@ -66,7 +61,7 @@ main() {
   local artifact_name="transform-$(date '+%Y%m%d-%H%M-%s')";
 
   if [[ $# -eq 0 ]] || [[ ! -f $file_env ]]; then
-    _usage "Environment file missing for deploy"
+    _error "The environment file is missing!"
   else
     # Load env vars into scope:
     # $PROD_SSH_KEY $APP_USER $PROD_SSH_USER $PROD_SSH_PORT

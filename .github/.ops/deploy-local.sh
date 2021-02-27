@@ -12,7 +12,7 @@
 # sudo chown -R www-data:www-data /var/www/vhosts
 # sudo ls -lha /var/www/vhosts
 
-# sudo service php7.4-fpm restart
+# sudo service php-fpm restart
 # sudo service nginx reload
 
 echo " ____                   _ "

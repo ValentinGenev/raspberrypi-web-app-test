@@ -11,11 +11,11 @@ pwd
 
 # # PHP installation 
 # apt-add-repository ppa:ondrej/php -y
-# apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages php7.4-fpm php7.4-cli \
-# php7.4-curl php7.4-sqlite3 php7.4-gd \
-# php7.4-imap php7.4-mysql php7.4-mbstring \
-# php7.4-xml php7.4-zip php7.4-json php7.4-bcmath \
-# php7.4-intl php7.4-readline
+# apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages php-fpm php-cli \
+# php-curl php-sqlite3 php-gd \
+# php-imap php-mysql php-mbstring \
+# php-xml php-zip php-json php-bcmath \
+# php-intl php-readline
 
 # # Directories
 # mkdir -p /var/www/artifacts/EMPTY

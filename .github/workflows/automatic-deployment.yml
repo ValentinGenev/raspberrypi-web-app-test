@@ -3,7 +3,7 @@ name: Automatic deployment
 
 on:
   pull_request:
-    types: [opened, edited, closed]
+    types: [opened, synchronize, closed]
 
 jobs:
   deploy_to_prod:

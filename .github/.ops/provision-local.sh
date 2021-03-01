@@ -1,7 +1,5 @@
 #!/bin/bash
 
-pwd
-
 # apt-get -y update
 # apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages curl software-properties-common mc gcc g++ make
 

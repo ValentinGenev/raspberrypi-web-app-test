@@ -23,7 +23,7 @@ _provision() {
   local port="$4";
   echo "Provisioning..."
 
-  ssh -o StrictHostKeyChecking=no -o IdentitiesOnly=no -i $sshkey $user@$host -p $port 'sudo bash -s' < "$DIR_ROOT/provision-local.sh"
+  ssh -o StrictHostKeyChecking=no -o IdentitiesOnly=no -o PasswordAuthentication=no -i $sshkey $user@$host -p $port 'sudo bash -s' < "$DIR_ROOT/provision-local.sh"
 }
 
 main() {

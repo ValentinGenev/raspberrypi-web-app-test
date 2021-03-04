@@ -8,8 +8,8 @@ rm /tmp/$ARTIFACT.tar.gz
 
 rm /var/www/vhosts
 ln -s $DIR_ARTIFACT /var/www/vhosts
-chown -R webbots:webbots /var/www/artifacts
-chown -R webbots:webbots /var/www/vhosts
+chown -R deliverybot:webbots /var/www/artifacts
+chown -R deliverybot:webbots /var/www/vhosts
 ls -lha /var/www/vhosts
 
 # service php-fpm restart

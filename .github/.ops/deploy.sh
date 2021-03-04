@@ -25,6 +25,9 @@ _prepare_artifact() {
   local source="`cd "$DIR_ROOT/../";pwd`";.
 
   echo $location
+  echo $target
+  echo $source
+  echo $source $location
 
   tar -zcvf $target \
     --exclude "." \

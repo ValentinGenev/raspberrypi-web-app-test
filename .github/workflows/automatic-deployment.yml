@@ -39,9 +39,8 @@ jobs:
           cd ..
 
           echo Running the scripts
-          chmod a+x provision.sh deploy.sh
+          chmod a+x deploy.sh
           cd ..
-          .ops/provision.sh production
           .ops/deploy.sh production
 
       - name: Setup NGINX web server conf

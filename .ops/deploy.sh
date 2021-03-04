@@ -20,7 +20,7 @@ _prepare_artifact() {
   local name="$1";
   local target="$DIR_ROOT/artifacts/$name.tar.gz";
 
-  tar -zcvf $target * --exclude "." --exclude ".ops/" --exclude "*.md" --exclude "*.txt"
+  tar -zcvf $target --exclude ".ops/" --exclude "*.md" --exclude "*.txt" *
 }
 
 _deploy() {

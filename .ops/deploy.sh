@@ -16,13 +16,6 @@ Usage:
 EOF
 }
 
-_prepare_artifact() {
-  local name="$1";
-  local target="$DIR_ROOT/artifacts/$name.tar.gz";
-
-  tar -zcvf $target --exclude ".ops/" --exclude "*.md" --exclude "*.txt" *
-}
-
 _deploy() {
   local ssh_key="$1";
   local host="$2";
@@ -44,13 +37,14 @@ main() {
   if [[ $# -eq 0 ]] || [[ ! -f $file_env ]]; then
     _error "The environment file is missing!"
   else
+    echo "Environment file found, parsing..."
+
     # Load env vars into scope:
     # $PROD_SSH_KEY $APP_USER $PROD_SSH_USER $PROD_SSH_PORT
     eval `cat $file_env`
 
-    echo "Environment file found, parsing..."
-
-    _prepare_artifact "$artifact_name"
+    # Prepare the artifacts
+    tar -zcf "$DIR_ROOT/artifacts/$artifact_name.tar.gz" --exclude ".ops/" --exclude "*.md" --exclude "*.txt" *
 
     # Deploy to multiple environments at once
     for i in "${!PROD_SSH_HOST[@]}"

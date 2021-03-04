@@ -1,6 +1,10 @@
 #!/bin/bash
 # DIR_ARTIFACT="/var/www/artifacts/${ARTIFACT}"
 
+echo 'test'
+echo $DIR_ARTIFACT
+echo 'test'
+
 mkdir -p $DIR_ARTIFACT
 tar -xzvC $DIR_ARTIFACT -f /tmp/$ARTIFACT.tar.gz
 touch "${DIR_ARTIFACT}/released.$(date '+%Y%m%d-%H%M')"

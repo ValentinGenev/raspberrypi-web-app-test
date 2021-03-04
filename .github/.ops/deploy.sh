@@ -2,8 +2,6 @@
 
 declare -rx DIR_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-. "$DIR_ROOT/common.sh"
-
 function _error()
 {
   if [ -n "$1" ]; then

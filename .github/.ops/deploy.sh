@@ -31,7 +31,7 @@ _prepare_artifact() {
     --exclude ".ops/" \
     --exclude "*.md" \
     --exclude "*.txt" \
-    -C $source
+    -C $source *
 }
 
 _deploy() {

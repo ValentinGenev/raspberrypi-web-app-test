@@ -1,0 +1,47 @@
+# Deploys the repo to remote server
+name: Automatic deployment
+
+on:
+  pull_request:
+    types: [opened, synchronize, closed]
+
+jobs:
+  deploy_to_prod:
+    name: Deploys the test app to prod env
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2.3.4
+
+      - name: Setting the .env file and running the provision and deploy scripts
+        run: |
+          echo Preparing environment
+          cd .ops/env
+
+          echo Preparing the key
+          touch env_ssh_key
+          cat <<\EOF > env_ssh_key
+          ${{ secrets.PROD_SSH_KEY }}
+          EOF
+          chmod 400 env_ssh_key
+
+          echo Preparing the environment file
+          touch production.env
+          cat <<\EOF > production.env
+          PROD_SSH_KEY=.ops/env/env_ssh_key
+          PROD_SSH_HOST=( ${{ secrets.PROD_SSH_HOST }} )
+          PROD_SSH_USER=( ${{ secrets.PROD_SSH_USER }} )
+          PROD_SSH_PORT=( ${{ secrets.PROD_SSH_PORT }} )
+          VHOST=( "${{ github.event.repository.name }}" )
+          EOF
+
+          cd ..
+          echo Running the scripts
+          chmod a+x deploy.sh
+          cd ..
+          .ops/deploy.sh production
+
+      - name: Setup NGINX web server conf
+        run: |
+          echo NGINX setup goes here

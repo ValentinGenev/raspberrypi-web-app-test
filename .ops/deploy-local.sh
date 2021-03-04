@@ -1,9 +1,5 @@
 #!/bin/bash
-# DIR_ARTIFACT="/var/www/artifacts/${ARTIFACT}"
-
-echo 'test'
-echo $DIR_ARTIFACT
-echo 'test'
+DIR_ARTIFACT="/var/www/artifacts/${ARTIFACT}"
 
 mkdir -p $DIR_ARTIFACT
 tar -xzvC $DIR_ARTIFACT -f /tmp/$ARTIFACT.tar.gz

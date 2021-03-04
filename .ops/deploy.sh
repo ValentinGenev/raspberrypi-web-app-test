@@ -45,12 +45,8 @@ main() {
 
     # Prepare the artifacts
     tar -zcf "$DIR_ROOT/artifacts/$artifact_name.tar.gz" --exclude ".ops/" --exclude "*.md" --exclude "*.txt" *
-
-    # Deploy to multiple environments at once
-    for i in "${!PROD_SSH_HOST[@]}"
-    do
-      _deploy "$PROD_SSH_KEY" "${PROD_SSH_HOST[$i]}" "${PROD_SSH_USER[$i]}" "${PROD_SSH_PORT[$i]}" "$artifact_name"
-    done
+    
+    _deploy "$PROD_SSH_KEY" "$PROD_SSH_HOST" "$PROD_SSH_USER" "$PROD_SSH_PORT" "$artifact_name"
   fi
 }
 

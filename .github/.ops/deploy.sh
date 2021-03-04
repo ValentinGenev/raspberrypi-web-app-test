@@ -21,17 +21,8 @@ EOF
 _prepare_artifact() {
   local name="$1";
   local target="$DIR_ROOT/artifacts/$name.tar.gz";
-  local source="`cd "$DIR_ROOT/../";pwd`";.
 
-  echo $target
-  echo $source
-
-  tar -zcvf $target \
-    --exclude "." \
-    --exclude ".ops/" \
-    --exclude "*.md" \
-    --exclude "*.txt" \
-    -C $source *
+  tar -zcvf $target * --exclude "." --exclude ".ops/" --exclude "*.md" --exclude "*.txt"
 }
 
 _deploy() {
@@ -43,6 +34,7 @@ _deploy() {
   local filename="$version.tar.gz";
 
   echo "Deploying $filename to - $host:$port"
+
   scp -i $ssh_key -P $port $DIR_ROOT/artifacts/$filename  $user@$host:/tmp/$filename
   ssh -o StrictHostKeyChecking=no -o IdentitiesOnly=no -o PasswordAuthentication=no -i $ssh_key $user@$host -p $port ARTIFACT="$version" 'bash -s' < "$DIR_ROOT/deploy-local.sh"
 }

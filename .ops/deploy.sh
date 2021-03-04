@@ -2,8 +2,6 @@
 
 declare -rx DIR_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-. "$DIR_ROOT/common.sh"
-
 function _error()
 {
   if [ -n "$1" ]; then
@@ -20,22 +18,9 @@ EOF
 
 _prepare_artifact() {
   local name="$1";
-  local location="$2";
   local target="$DIR_ROOT/artifacts/$name.tar.gz";
-  local source="`cd "$DIR_ROOT/../";pwd`";.
 
-  echo $location
-  echo $target
-  echo $source
-  echo $source $location
-
-  tar -zcvf $target \
-    --exclude "." \
-    --exclude ".ops/" \
-    --exclude "node_modules/" \
-    --exclude "*.txt" \
-    --exclude "*.log" \
-    -C $source $location
+  tar -zcvf $target * --exclude "." --exclude ".ops/" --exclude "*.md" --exclude "*.txt"
 }
 
 _deploy() {
@@ -47,6 +32,7 @@ _deploy() {
   local filename="$version.tar.gz";
 
   echo "Deploying $filename to - $host:$port"
+
   scp -i $ssh_key -P $port $DIR_ROOT/artifacts/$filename  $user@$host:/tmp/$filename
   ssh -o StrictHostKeyChecking=no -o IdentitiesOnly=no -o PasswordAuthentication=no -i $ssh_key $user@$host -p $port ARTIFACT="$version" 'bash -s' < "$DIR_ROOT/deploy-local.sh"
 }
@@ -64,7 +50,7 @@ main() {
 
     echo "Environment file found, parsing..."
 
-    _prepare_artifact "$artifact_name" "$VHOST"
+    _prepare_artifact "$artifact_name"
 
     # Deploy to multiple environments at once
     for i in "${!PROD_SSH_HOST[@]}"

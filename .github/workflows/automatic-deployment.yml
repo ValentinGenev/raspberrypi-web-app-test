@@ -17,7 +17,7 @@ jobs:
       - name: Setting the .env file and running the provision and deploy scripts
         run: |
           echo Preparing environment
-          cd .github/.ops/env
+          cd .ops/env
 
           echo Preparing the key
           touch env_ssh_key
@@ -37,7 +37,6 @@ jobs:
           EOF
 
           cd ..
-
           echo Running the scripts
           chmod a+x deploy.sh
           cd ..
